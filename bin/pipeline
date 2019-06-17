@@ -111,26 +111,33 @@ if [ ! -f $HOME/Library/Fonts/Perplexed-Normal.otf ]; then
 fi
 
 # 3b. Reset theme to Bullet-train and add settings (in case user wanted to reset)
-sed -i '' 's/ZSH_THEME=.*/ZSH_THEME="bullet-train"/' $HOME/.zshrc
-append_to_zshrc '# Bullet Train'
-append_to_zshrc 'BULLETTRAIN_PROMPT_ORDER=(status dir nvm git)' 1
-append_to_zshrc 'BULLETTRAIN_PROMPT_ADD_NEWLINE=false' 1
-append_to_zshrc 'BULLETTRAIN_PROMPT_CHAR=""' 1
-append_to_zshrc 'BULLETTRAIN_DIR_BG=red' 1
-append_to_zshrc 'BULLETTRAIN_DIR_FG=black' 1
-append_to_zshrc 'BULLETTRAIN_GIT_BG=green' 1
-append_to_zshrc 'BULLETTRAIN_GIT_COLORIZE_DIRTY=true' 1
-append_to_zshrc 'BULLETTRAIN_GIT_EXTENDED=false' 1
-append_to_zshrc 'BULLETTRAIN_GIT_FG=black' 1
-append_to_zshrc 'BULLETTRAIN_NVM_BG=black' 1
-append_to_zshrc 'BULLETTRAIN_NVM_FG=green' 1
-append_to_zshrc 'BULLETTRAIN_NVM_SHOW=true' 1
+sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="bullet-train"/' $HOME/.zshrc
 
 # 3c. If no theme file, install
 if [ -f "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme" ]; then
 	printf "\r[3/8] ${NAILS} Theme: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
   curl -o "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme >/dev/null
+  # Add Bullet Train variables BEFORE ZSH_THEME to take effect
+  sed -i '' 's/^ZSH_THEME=.*/# Bullet Train Settings (must come before ZSH_THEME)\
+prompt_emoji() {\
+  prompt_segment black white "✨"\
+}\
+BULLETTRAIN_PROMPT_ORDER=(emoji status dir nvm git)\
+BULLETTRAIN_PROMPT_ADD_NEWLINE=false\
+BULLETTRAIN_PROMPT_SEPARATE_LINE=false\
+BULLETTRAIN_PROMPT_CHAR=""\
+BULLETTRAIN_DIR_BG=magenta\
+BULLETTRAIN_DIR_FG=black\
+BULLETTRAIN_GIT_BG=green\
+BULLETTRAIN_GIT_COLORIZE_DIRTY=true\
+BULLETTRAIN_GIT_EXTENDED=false\
+BULLETTRAIN_GIT_FG=black\
+BULLETTRAIN_NVM_BG=black\
+BULLETTRAIN_NVM_FG=green\
+BULLETTRAIN_NVM_SHOW=true\
+\
+ZSH_THEME="bullet-train"/' $HOME/.zshrc
   printf "\r[3/8] ${NAILS} Theme: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 
