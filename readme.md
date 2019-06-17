@@ -13,47 +13,43 @@ you need.
 
 | Name                                       | What is it?                                                                                                                                                                                                               |
 | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Xcode Tools                                | Utilities needed for most programs, without the weight of full [Xcode][xcode]. This tiny install is needed for most other utilities you need.                                                                             |
+| Xcode Tools                                | Utilities needed for most programs, without the weight of full [Xcode][xcode]. This tiny install is needed for most other dev tools on Mac.                                                                               |
 | [Homebrew][homebrew]                       | THE package manager for Mac. Lets you install & uninstall software quickly, painlessly, and without putting your system in danger.                                                                                        |
 | [Git][git]                                 | Standard version control for modern software. Enables teams to work collaboratively and keep backups of all historic code changes.                                                                                        |
 | [Nodenv][nodenv]                           | Multiple projects require different [Node.js][node] versions. Nodenv lets you effortlessly switch between Node.js versions, or fall back to your preferred default version if none is specified. Simpler to use than NVM. |
 | [Oh My Zsh][oh-my-zsh]                     | Get an awesome shell without copying + pasting shell scripts willy-nilly. Plugins, themes, and a community make shell customization fun!                                                                                  |
 | [The Silver Searcher][the-silver-searcher] | Search contents of all files on your system faster than… well… just about anything else.                                                                                                                                  |
 
-### What’s not included
-
-The following dev tools aren’t installed by this script, but thanks to
-Homebrew can be optionally installed after finishing:
-
-| Name                 | Command                                                    |
-| :------------------- | :--------------------------------------------------------- |
-| [Golang][golang]     | `brew install go`                                          |
-| [PHPBrew][phpbrew]   | None; follow [instructions][phpbrew]                       |
-| [Postgres][postgres] | `brew install postgres`                                    |
-| [rbenv][rbenv]       | `brew install rbenv` (read the post-install setup message) |
+_[Golang][golang], [PHPBrew][phpbrew], [Postgres][postgres], and
+[rbenv][rbenv] are **not** installed by this script. These, along with
+anything else you need, can be installed via Homebrew or otherwise after
+installation._
 
 ## 🚀 Running the script
 
 It’s important to view the [source][source] before installing any script.
 
+Once you’re ready, run the following command from any terminal:
+
 ```bash
 sh -c "$(curl -s https://raw.githubusercontent.com/dangodev/pipeline/master/bin/pipeline)"
 ```
 
-### Post-setup
+## 💅 Customizing
 
-Change the font in your terminal to the newly-installed “Perplexed” font in
-order for the icons to work correctly. Many terminals don’t allow changing
-this via the shell, so this is a manual change.
+The following steps can‘t be set from the shell command. But they’re also
+based on your personal preference anyway, so here’s where you get to customize!
 
-✨Also grab an awesome terminal background from
-[here][awesome-terminal-backgrounds].
+- [ ] Change the font in your terminal to the newly-installed “Perplexed” font in
+      order for the icons to work correctly. Many terminals don’t allow changing
+      this via the shell, so this is a manual change.
+- [ ] Grab an ✨ awesome terminal background from
+      [here][awesome-terminal-backgrounds].
+- [ ] In your terminal, change your ANSI colors to match your new theme better
 
-### …Now what?
+## 🤓 Commands
 
 Okay, it’s installed… now what can I do?
-
-#### Commands
 
 | Command                         | What it does                                                                                                                     |
 | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +62,7 @@ Okay, it’s installed… now what can I do?
 | `grc`                           | `git rebase --continue` If rebasing through a conflict, continue                                                                 |
 | `grm`                           | `git rebase -i origin/master` Rebase current branch from master                                                                  |
 
-#### Speed Tips
+### Tips
 
 - **Manage Node with ease.** Add a `.node-version` file in any folder with
   `12.4.0` (or any node version). Now whenever you’re in that folder,
@@ -76,18 +72,19 @@ Okay, it’s installed… now what can I do?
   (<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>, type `code`). Now you can
   jump between projects with `z project1 && code .` and `z project2 && code .`
 
-#### FAQ
+## 💁 FAQ
 
-##### I don’t have a cool gradient background! How do I get one?
+### I don’t have a cool gradient background! How do I get one?
 
 Alas, terminal backgrounds (along with fonts) are something this script
 cannot do. But good news! You can find many great backgrounds at [✨
 awesome-terminal-backgrounds][awesome-terminal-backgrounds].
 
-##### How can I recolor or reorder the terminal segments?
+### How can I change the terminal segments / what if I want something else instead of Node version?
 
-The theme installed, [Bullet Train][bullet-train], was actually made for
-this! In your `.zshrc` file, you’ll see the following lines:
+[Bullet Train][bullet-train], was built for customization (and why I prefer
+it over the similar-looking Agnoster theme for zsh). In your `.zshrc` file,
+you’ll see the following lines:
 
 ```
 prompt_emoji() {
@@ -107,21 +104,21 @@ BULLETTRAIN_NVM_FG=green
 BULLETTRAIN_NVM_SHOW=true
 ```
 
-Edit `BULLETTRAIN_PROMPT_ORDER` to change the ordering, and you can use the
-settings below to alter their foreground & background colors. You use add
-segments for Ruby, Kubernetes, Go, and it even allows for custom segments as
-well. Consult [the docs][bullet-train] to learn how.
+Edit `BULLETTRAIN_PROMPT_ORDER` to change the terminal prompt. You can swap
+any out for for Ruby, Kubernetes, Go, and more! You can also adjust the
+foreground & background colors for each segment. [Read more][bullet-train]
 
-If you’d like to try another theme altogether, Oh My Zsh has [quite a few
-built-in themes][oh-my-zsh-theme], as well as a wide selection of
-[third-party ones][oh-my-zsh-external].
+### What other themes are there?
 
-##### I’m seeing weird symbols in my terminal. Is that normal?
+Oh My Zsh has [quite a few built-in themes][oh-my-zsh-theme], as well as a
+wide selection of [third-party ones][oh-my-zsh-external]. Give ’em all a spin!
+
+### I’m seeing weird symbols in my terminal. Is that normal?
 
 You probably need to change your font to “Perplexed,” a patched version of
 IBM Sans with built-in icons for your terminal.
 
-##### I don’t like the terminal font. Can I change it?
+### I don’t like the terminal font. Can I change it?
 
 You can install any font with modified special characters (needed for the
 icons in terminal). You can find such fonts here:
@@ -129,12 +126,7 @@ icons in terminal). You can find such fonts here:
 - [Nerd Fonts][nerd-fonts]
 - [Powerline Fonts][powerline-fonts]
 
-In case you don’t like IBM Plex Sans (my personal preference), `Hack`, `Input Mono`, and `Meslo` (the default Mac font, but patched with icons) are also
-great.
-
-Once installed, change your terminal preferences to use the modified font.
-
-## Uninstalling
+## 🗑️ Uninstalling
 
 There’s not an uninstall script, but the changes this script makes are easy
 to undo:
@@ -152,14 +144,12 @@ That’s it! No other files or system settings were affected.
 
 ## ️🤷🏻‍♂️ About
 
-I’m Drew, and I’ve been designing & building UI for over a decade. I also
-appreciate pretty things ✨. This script came about from several people over
-the years asking me [about my config][config], and to set up their machines.
-I had more than 3 people ask, so I automated it 🤖.
-
-This setup is one of the least-opinionated setups I’ve come across, but that
-also doesn’t mean it’s for everyone. This tool is for people that either
-don’t have experience customizing their tooling, or don’t want to.
+This setup script came about from several people over the years asking me
+[about my config][config], and to set up their machines. I had more than 3
+people ask, so I automated it 🤖. Even though this is one of the
+least-opinionated setups I’ve come across, that also doesn’t mean it’s for
+everyone! This tool is for people that either don’t have experience
+customizing their config, or don’t want to.
 
 This software is **public domain**. Remix, copy, steal, whatever—just use it
 to help others! Use at your own risk.
