@@ -1,5 +1,7 @@
 # 🌊 Pipeline for Mac
 
+![pipeline](./pipeline.jpg)
+
 Rad setup scripts to prepare your Mac for development. Installs
 [Homebrew][homebrew], [Git][git], [Oh My Zsh][oh-my-zsh], [nodenv][nodenv],
 and a 💅 stylin [terminal theme][zsh-bullet-train]. Installs the bare-minimum
@@ -40,10 +42,12 @@ sh -c "$(curl -s https://raw.githubusercontent.com/dangodev/pipeline/master/bin/
 
 ### Post-setup
 
-⚠️ **Important**: this script installed [a patched version of IBM Plex
-Sans][perplexed] the terminal theme needs. But this script can’t change your
-terminal font. Change the font in your terminal (either Terminal or
-[iTerm][iterm]) to “Perplexed” in order for the theme to work correctly.
+Change the font in your terminal to the newly-installed “Perplexed” font in
+order for the icons to work correctly. Many terminals don’t allow changing
+this via the shell, so this is a manual change.
+
+✨Also grab an awesome terminal background from
+[here][awesome-terminal-backgrounds].
 
 ### …Now what?
 
@@ -74,11 +78,11 @@ Okay, it’s installed… now what can I do?
 
 #### FAQ
 
-##### This script didn’t give me a cool gradient background! How do I get one?
+##### I don’t have a cool gradient background! How do I get one?
 
 Alas, terminal backgrounds (along with fonts) are something this script
 cannot do. But good news! You can find many great backgrounds at [✨
-awesome-terminal-backcgrounds][awesome-terminal-backgrounds].
+awesome-terminal-backgrounds][awesome-terminal-backgrounds].
 
 ##### How can I recolor or reorder the terminal segments?
 
@@ -86,10 +90,13 @@ The theme installed, [Bullet Train][bullet-train], was actually made for
 this! In your `.zshrc` file, you’ll see the following lines:
 
 ```
-BULLETTRAIN_PROMPT_ORDER=(status dir nvm git)
+prompt_emoji() {
+  prompt_segment black white "✨"
+}
+BULLETTRAIN_PROMPT_ORDER=(emoji status dir nvm git)
 BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 BULLETTRAIN_PROMPT_CHAR=""
-BULLETTRAIN_DIR_BG=red
+BULLETTRAIN_DIR_BG=magenta
 BULLETTRAIN_DIR_FG=black
 BULLETTRAIN_GIT_BG=green
 BULLETTRAIN_GIT_COLORIZE_DIRTY=true
@@ -108,6 +115,11 @@ well. Consult [the docs][bullet-train] to learn how.
 If you’d like to try another theme altogether, Oh My Zsh has [quite a few
 built-in themes][oh-my-zsh-theme], as well as a wide selection of
 [third-party ones][oh-my-zsh-external].
+
+##### I’m seeing weird symbols in my terminal. Is that normal?
+
+You probably need to change your font to “Perplexed,” a patched version of
+IBM Sans with built-in icons for your terminal.
 
 ##### I don’t like the terminal font. Can I change it?
 
@@ -132,8 +144,8 @@ to undo:
 | Xcode tools                      | [Uninstall][xcode-uninstall] but I wouldn’t recommend it as this should be part of your system. Many tools will just re-install this anyway; this is only missing sometimes on brand-new systems but usually gets installed one way or another. |
 | Homebrew                         | [Uninstall][homebrew-uninstall]                                                                                                                                                                                                                 |
 | Oh My Zsh                        | [Uninstall][oh-my-zsh-uninstall] (note that this will also remove plugins & theme changes as well)                                                                                                                                              |
-| `~/.hushlogin`                   | This just hides the annoying ”Last login” message on every terminal bootup. Just delete this empty file to undo it.                                                                                                                             |
-| `~/Library/Perplexed-Normal.otf` | This font was installed for you. Uninstall it if you wish.                                                                                                                                                                                      |
+| `~/.hushlogin`                   | This hides the annoying ”Last login” message on every terminal bootup. Delete this empty file to undo it.                                                                                                                                       |
+| `~/Library/Perplexed-Normal.otf` | 1 font was installed for your convenience. Uninstall “Perplexed Normal” via Font Book, or delete this file.                                                                                                                                     |
 | `~/.zshrc`                       | Oh My Zsh will leave this around, in case you want to use zsh without it. Delete this file if you wish to return to Bash.                                                                                                                       |
 
 That’s it! No other files or system settings were affected.
