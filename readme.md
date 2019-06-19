@@ -11,14 +11,14 @@ you need.
 
 ## 🏄 Features
 
-| Name                                       | What is it?                                                                                                                                                                                                               |
-| :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Xcode Tools                                | Utilities needed for most programs, without the weight of full [Xcode][xcode]. This tiny install is needed for most other dev tools on Mac.                                                                               |
-| [Homebrew][homebrew]                       | THE package manager for Mac. Lets you install & uninstall software quickly, painlessly, and without putting your system in danger.                                                                                        |
-| [Git][git]                                 | Standard version control for modern software. Enables teams to work collaboratively and keep backups of all historic code changes.                                                                                        |
-| [Nodenv][nodenv]                           | Multiple projects require different [Node.js][node] versions. Nodenv lets you effortlessly switch between Node.js versions, or fall back to your preferred default version if none is specified. Simpler to use than NVM. |
-| [Oh My Zsh][oh-my-zsh]                     | Get an awesome shell without copying + pasting shell scripts willy-nilly. Plugins, themes, and a community make shell customization fun!                                                                                  |
-| [The Silver Searcher][the-silver-searcher] | Search contents of all files on your system faster than… well… just about anything else.                                                                                                                                  |
+| Name                   | What is it?                                                                                                                                                                                                               |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Xcode Tools            | Utilities needed for most programs, without the weight of full [Xcode][xcode]. This tiny install is needed for most other dev tools on Mac.                                                                               |
+| [Homebrew][homebrew]   | THE package manager for Mac. Lets you install & uninstall software quickly, painlessly, and without putting your system in danger.                                                                                        |
+| [Git][git]             | Standard version control for modern software. Enables teams to work collaboratively and keep backups of all historic code changes.                                                                                        |
+| [Nodenv][nodenv]       | Multiple projects require different [Node.js][node] versions. Nodenv lets you effortlessly switch between Node.js versions, or fall back to your preferred default version if none is specified. Simpler to use than NVM. |
+| [Oh My Zsh][oh-my-zsh] | Get an awesome shell without copying + pasting shell scripts willy-nilly. Plugins, themes, and a community make shell customization fun!                                                                                  |
+| [ripgrep][ripgrep]     | Search contents of all files on your system faster than… well… just about anything else.                                                                                                                                  |
 
 _[Golang][golang], [PHPBrew][phpbrew], [Postgres][postgres], and
 [rbenv][rbenv] are **not** installed by this script. These, along with
@@ -56,7 +56,7 @@ Okay, it’s installed… now what can I do?
 | (start typing)                  | Your shell will now highlight correct commands in **green**, incorrect ones in **red**—before you hit <kbd>Enter</kbd>!          |
 | (start typing) + <kbd>tab</kbd> | Start typing any command, and hit <kbd>tab</kbd>. Your shell will try and complete it for you!                                   |
 | `z [my-folder]`                 | Jump quickly from any folder to another, by typing its name (_note: `cd` into it first_)                                         |
-| `ag myFunction ~/code`          | Search all files in `~/code` containing `myFunction` using [The Silver Searcher][the-silver-searcher]. Blazing-fast 🔥           |
+| `rg myFunction ~/code`          | Search all files in `~/code` containing `myFunction` using [ripgrep][ripgrep]. Blazing-fast 🔥                                   |
 | `gl`                            | `git pull --rebase` Update branch with origin                                                                                    |
 | `gpf`                           | `git push --force --force-with-lease` Force-push but fail if something changed remotely (great for ninja edits without the risk) |
 | `grc`                           | `git rebase --continue` If rebasing through a conflict, continue                                                                 |
@@ -134,6 +134,7 @@ to undo:
 | Change                           | Uninstalling                                                                                                                                                                                                                                    |
 | :------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Xcode tools                      | [Uninstall][xcode-uninstall] but I wouldn’t recommend it as this should be part of your system. Many tools will just re-install this anyway; this is only missing sometimes on brand-new systems but usually gets installed one way or another. |
+| Homebrew utilities               | `brew uninstall git nodenv ripgrep`                                                                                                                                                                                                             |
 | Homebrew                         | [Uninstall][homebrew-uninstall]                                                                                                                                                                                                                 |
 | Oh My Zsh                        | [Uninstall][oh-my-zsh-uninstall] (note that this will also remove plugins & theme changes as well)                                                                                                                                              |
 | `~/.hushlogin`                   | This hides the annoying ”Last login” message on every terminal bootup. Delete this empty file to undo it.                                                                                                                                       |
@@ -182,8 +183,8 @@ to help others! Use at your own risk.
 [postgres]: https://www.postgresql.org/
 [powerline-fonts]: https://github.com/powerline/fonts
 [rbenv]: https://github.com/rbenv/rbenv
+[ripgrep]: https://github.com/BurntSushi/ripgrep
 [source]: ./bin/pipeline
-[the-silver-searcher]: https://github.com/ggreer/the_silver_searcher
 [xcode]: https://developer.apple.com/xcode/
 [xcode-uninstall]: https://developer.apple.com/library/archive/technotes/tn2339/_index.html#//apple_ref/doc/uid/DTS40014588-CH1-HOW_CAN_I_UNINSTALL_THE_COMMAND_LINE_TOOLS_
 [zsh-bullet-train]: https://github.com/caiogondim/bullet-train.zsh

@@ -10,6 +10,7 @@ B0='\342\226\221' # empty box
 B1='\342\226\223' # solid box
 BEERS='\360\237\215\273'
 CHECK='\342\234\223'
+MAGNIFYING_GLASS='\360\237\224\215'
 NAILS='\360\237\222\205'
 OCEAN='\360\237\214\212'
 REFRESH='\360\237\224\204'
@@ -180,22 +181,24 @@ else
 	printf "\r[7/8] ${TREX} nodenv: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 8. The Silver Searcher
-printf "[8/8] ${SURFER} Installing The Silver Searcher [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}]"
+# 8. ripgrep
+printf "[8/8] ${MAGNIFYING_GLASS} Installing ripgrep [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}]"
 
-if command -v ag >/dev/null; then
-	printf "\r[8/8] ${SURFER} The Silver Searcher: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+if command -v rg >/dev/null; then
+	printf "\r[8/8] ${MAGNIFYING_GLASS} ripgrep: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  brew install the_silver_searcher >/dev/null
-	printf "\r[8/8] ${SURFER} The Silver Searcher: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+  brew install ripgrep >/dev/null
+	printf "\r[8/8] ${MAGNIFYING_GLASS} ripgrep: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 
 # 9. Finish
 append_to_zshrc '# Aliases'
 append_to_zshrc "alias gf='git fetch'" 1
 append_to_zshrc "alias gl='git pull --rebase'" 1
+append_to_zshrc "alias gs='git status'" 1
 append_to_zshrc "alias gpf='git push --force --force-with-lease'" 1
 append_to_zshrc "alias grc='git rebase --continue'" 1
+append_to_zshrc "alias grs='git rebase --skip'" 1
 append_to_zshrc "alias grm='git rebase -i origin/master'" 1
 ELAPSED_TIME=$(($SECONDS - $START_TIME))
 printf "${GREEN}${BOLD}${CHECK} Done${RESETALL} in $(($ELAPSED_TIME))s.\n"
