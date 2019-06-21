@@ -193,13 +193,16 @@ fi
 
 # 9. Finish
 append_to_zshrc '# Aliases'
+append_to_zshrc "alias gcb='git checkout -b '" 1
+append_to_zshrc "alias gcm='git checkout master'" 1
 append_to_zshrc "alias gf='git fetch'" 1
 append_to_zshrc "alias gl='git pull --rebase'" 1
-append_to_zshrc "alias gs='git status'" 1
 append_to_zshrc "alias gpf='git push --force --force-with-lease'" 1
 append_to_zshrc "alias grc='git rebase --continue'" 1
-append_to_zshrc "alias grs='git rebase --skip'" 1
+append_to_zshrc "alias grh='git reset --hard HEAD'" 1
 append_to_zshrc "alias grm='git rebase -i origin/master'" 1
+append_to_zshrc "alias grs='git rebase --skip'" 1
+append_to_zshrc "alias gs='git status'" 1
 ELAPSED_TIME=$(($SECONDS - $START_TIME))
 printf "${GREEN}${BOLD}${CHECK} Done${RESETALL} in $(($ELAPSED_TIME))s.\n"
 printf "\n${YELLOW}${BOLD}Change your terminal font to “Perplexed Normal” for icons to work${RESETALL}\n"
