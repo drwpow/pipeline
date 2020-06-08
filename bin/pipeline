@@ -154,7 +154,7 @@ printf "[5/8] ${BEERS} Installing Homebrew (press <Enter>) [${B1}${B1}${B1}${B1}
 if command -v brew >/dev/null; then
 	printf "\r[5/8] ${BEERS} Homebrew: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" >/dev/null
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" >/dev/null
   export PATH="/usr/local/bin:$PATH"
 	printf "\r[5/8] ${BEERS} Homebrew: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
