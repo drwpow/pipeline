@@ -56,8 +56,9 @@ append_to_zshrc() {
 }
 
 zsh_plugin() {
-  if ! grep "^plugins=(.*$1" $HOME/.zshrc >/dev/null; then
-    sed -i '' "s/^plugins=(\([^\)]*\)/plugins=(\1 $1/" $HOME/.zshrc
+  if ! grep "^plugins=.*$1[)|\s]" $HOME/.zshrc >/dev/null; then
+    echo "yes"
+    sed -i '' "s/^plugins=\([^)]*\)/plugins=\1 $1/" $HOME/.zshrc
   fi
 }
 
@@ -165,20 +166,20 @@ if brew ls --versions git >/dev/null; then
 	printf "\r[6/8] ${ROBOT} Git: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
   brew install git >/dev/null
+  append_to_zshrc '# Git'
+  append_to_zshrc 'export GIT_TERMINAL_PROMPT=1' 1
 	printf "\r[6/8] ${BEERS} Git: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 7. nodenv
-printf "[7/8] ${TREX} Installing nodenv [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}${B0}]"
-append_to_zshrc '# nodenv'
-append_to_zshrc 'if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi' 1
-append_to_zshrc 'path+=(~/.nodenv/bin)' 1
-if command -v nodenv >/dev/null; then
-	printf "\r[7/8] ${TREX} nodenv: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+# 7. fnm
+printf "[7/8] ${TREX} Installing fnm [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}${B0}]"
+append_to_zshrc '# fnm'
+append_to_zshrc 'eval "$(fnm env)"' 1
+if command -v fnm >/dev/null; then
+	printf "\r[7/8] ${TREX} fnm: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  brew install nodenv >/dev/null
-  git clone https://github.com/nodenv/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
-	printf "\r[7/8] ${TREX} nodenv: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+  brew install fnm >/dev/null
+	printf "\r[7/8] ${TREX} fnm: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 
 # 8. ripgrep
@@ -194,13 +195,14 @@ fi
 # 9. Finish
 append_to_zshrc '# Aliases'
 append_to_zshrc "alias gcb='git checkout -b '" 1
-append_to_zshrc "alias gcm='git checkout master'" 1
+append_to_zshrc "alias gcm='git checkout main'" 1
 append_to_zshrc "alias gf='git fetch'" 1
 append_to_zshrc "alias gl='git pull --rebase'" 1
 append_to_zshrc "alias gpf='git push --force --force-with-lease'" 1
+append_to_zshrc "alias gpo='git remote prune origin'" 1
 append_to_zshrc "alias grc='git rebase --continue'" 1
 append_to_zshrc "alias grh='git reset --hard HEAD'" 1
-append_to_zshrc "alias grm='git rebase -i origin/master'" 1
+append_to_zshrc "alias grm='git rebase -i origin/main'" 1
 append_to_zshrc "alias grs='git rebase --skip'" 1
 append_to_zshrc "alias gs='git status'" 1
 ELAPSED_TIME=$(($SECONDS - $START_TIME))
