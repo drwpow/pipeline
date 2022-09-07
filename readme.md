@@ -18,7 +18,7 @@ Rad setup scripts to prepare your Mac for development. Installs the bare-minimum
 
 Run the folowing command in a terminal ([view source][source])
 
-```bash
+```
 sh -c "$(curl -s https://raw.githubusercontent.com/drwpow/pipeline/main/bin/pipeline)"
 ```
 
@@ -104,15 +104,15 @@ You can install any font with **modified special characters\*** (needed for the 
 There’s not an uninstall script, but the changes this script makes are easy
 to undo:
 
-| Change                           | Uninstalling                                                                                                              |
-| :------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| Xcode tools                      | [Uninstall docs][xcode-uninstall] (but this is Apple software and I wouldn’t recommend removing it).                      |
-| fnm, Git                         | `brew uninstall fnm git`                                                                                                  |
-| Homebrew                         | [Uninstall][homebrew-uninstall]                                                                                           |
-| Oh My Zsh                        | [Uninstall][oh-my-zsh-uninstall] (note that this will also remove plugins & theme changes as well)                        |
-| `~/.hushlogin`                   | This hides the annoying ”Last login” message on every terminal bootup. Delete this empty file to undo it.                 |
-| `~/Library/Perplexed-Normal.otf` | 1 font was installed for your convenience. Uninstall “Perplexed Normal” via Font Book, or delete this file.               |
-| `~/.zshrc`                       | Oh My Zsh will leave this around, in case you want to use zsh without it. Delete this file if you wish to return to Bash. |
+| Change                           | Uninstalling                                                                                                |
+| :------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| Xcode tools                      | [Uninstall docs][xcode-uninstall] (but this is Apple software and I wouldn’t recommend removing it).        |
+| fnm, Git                         | `brew uninstall fnm git`                                                                                    |
+| Homebrew                         | [Uninstall][homebrew-uninstall]                                                                             |
+| Oh My Zsh                        | [Uninstall][oh-my-zsh-uninstall] (note that this will also remove plugins & theme changes as well)          |
+| `~/.hushlogin`                   | This hides the annoying ”Last login” message on every terminal bootup. Delete this empty file to undo it.   |
+| `~/Library/Perplexed-Normal.otf` | 1 font was installed for your convenience. Uninstall “Perplexed Normal” via Font Book, or delete this file. |
+| `~/.zshrc.pre-oh-my-zsh`         | Oh My Zsh will leave this around, in case you want to switch back to your preexisting setup.                |
 
 That’s it! No other files or system settings were affected.
 

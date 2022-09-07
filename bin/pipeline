@@ -101,8 +101,6 @@ else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null
 	printf "\r[2/7] ${TOOLBOX} Oh My Zsh: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
-append_to_zshrc '# Default User'
-append_to_zshrc 'DEFAULT_USER=$USER' 1
 
 # 3. Bullet-train theme
 printf "[3/7] ${NAILS} Installing Theme [${B1}${B1}${B1}${B0}${B0}${B0}${B0}${B0}]"
@@ -123,7 +121,7 @@ else
   # Add Bullet Train variables BEFORE ZSH_THEME to take effect
   sed -i '' 's/^ZSH_THEME=.*/# Bullet Train Settings (must come before ZSH_THEME)\
 prompt_emoji() {\
-  prompt_segment black white "✨"\
+  prompt_segment black white "🏄‍♂️ "\
 }\
 BULLETTRAIN_PROMPT_ORDER=(emoji status dir nvm git)\
 BULLETTRAIN_PROMPT_ADD_NEWLINE=false\
@@ -174,7 +172,7 @@ fi
 # 7. fnm
 printf "[7/7] ${TREX} Installing fnm [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}]"
 append_to_zshrc '# fnm'
-append_to_zshrc 'eval "$(fnm env)"' 1
+append_to_zshrc 'eval "$(fnm env --use-on-cd)"' 1
 if command -v fnm >/dev/null; then
 	printf "\r[7/7] ${TREX} fnm: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
