@@ -79,6 +79,8 @@ printf "${SURFER} Dropping in…\n"
 
 START_TIME=$SECONDS
 
+
+
 # 1. Xcode
 printf "[1/7] ${WRENCH} Installing XCode [${B1}${B0}${B0}${B0}${B0}${B0}${B0}${B0}] "
 if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
@@ -123,19 +125,25 @@ else
 prompt_emoji() {\
   prompt_segment black white "🏄‍♂️ "\
 }\
-BULLETTRAIN_PROMPT_ORDER=(emoji status dir nvm git)\
-BULLETTRAIN_PROMPT_ADD_NEWLINE=false\
-BULLETTRAIN_PROMPT_SEPARATE_LINE=false\
-BULLETTRAIN_PROMPT_CHAR=""\
-BULLETTRAIN_DIR_BG=magenta\
-BULLETTRAIN_DIR_FG=black\
-BULLETTRAIN_GIT_BG=green\
-BULLETTRAIN_GIT_COLORIZE_DIRTY=true\
-BULLETTRAIN_GIT_EXTENDED=false\
-BULLETTRAIN_GIT_FG=black\
-BULLETTRAIN_NVM_BG=black\
-BULLETTRAIN_NVM_FG=green\
-BULLETTRAIN_NVM_SHOW=true\
+BULLETTRAIN_PROMPT_ORDER=(emoji dir nvm git cmd_exec_time)
+BULLETTRAIN_PROMPT_ADD_NEWLINE=false
+BULLETTRAIN_PROMPT_SEPARATE_LINE=false
+BULLETTRAIN_PROMPT_CHAR=""
+BULLETTRAIN_EXEC_TIME_BG=239
+BULLETTRAIN_EXEC_TIME_FG=black
+BULLETTRAIN_EXEC_TIME_ELAPSED=0
+BULLETTRAIN_DIR_BG=57
+BULLETTRAIN_DIR_FG=black
+BULLETTRAIN_GIT_BG=41
+BULLETTRAIN_GIT_FG=236
+BULLETTRAIN_GIT_CLEAN=""
+BULLETTRAIN_GIT_DIRTY=" ⚠︎"
+BULLETTRAIN_GIT_COLORIZE_DIRTY=true
+BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR=214
+BULLETTRAIN_GIT_EXTENDED=false
+BULLETTRAIN_NVM_BG=black
+BULLETTRAIN_NVM_FG=41
+BULLETTRAIN_NVM_SHOW=true
 \
 ZSH_THEME="bullet-train"/' $HOME/.zshrc
   printf "\r[3/7] ${NAILS} Theme: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
@@ -149,12 +157,13 @@ zsh_custom_plugin 'zsh-syntax-highlighting'
 printf "\r[4/7] ${SPARKLES} Plugins: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 
 # 5. Homebrew
-printf "[5/7] ${BEERS} Installing Homebrew (press <Enter>) [${B1}${B1}${B1}${B1}${B1}${B0}${B0}${B0}]"
+printf "[5/7] ${BEERS} Installing Homebrew [${B1}${B1}${B1}${B1}${B1}${B0}${B0}${B0}]"
 if command -v brew >/dev/null; then
 	printf "\r[5/7] ${BEERS} Homebrew: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" >/dev/null
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   export PATH="/usr/local/bin:$PATH"
+  source "~/.zshrc" # reload Homebrew
 	printf "\r[5/7] ${BEERS} Homebrew: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
 fi
 

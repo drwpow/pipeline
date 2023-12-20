@@ -19,8 +19,10 @@ Rad setup scripts to prepare your Mac for development. Installs the bare-minimum
 Run the folowing command in a terminal ([view source][source])
 
 ```
-sh -c "$(curl -s https://raw.githubusercontent.com/drwpow/pipeline/main/bin/pipeline)"
+sudo sh -c "$(curl -s https://raw.githubusercontent.com/drwpow/pipeline/main/bin/pipeline)"
 ```
+
+_Note: `sudo` is only required for [Homebrew](https://brew.sh/). If you install that manually, you do **NOT** need to run this script as `sudo`._
 
 ## 💅 Customizing
 
