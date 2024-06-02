@@ -8,18 +8,6 @@
 
 B0='\342\226\221' # empty box
 B1='\342\226\223' # solid box
-BEERS='\360\237\215\273'
-CHECK='\342\234\223'
-MAGNIFYING_GLASS='\360\237\224\215'
-NAILS='\360\237\222\205'
-OCEAN='\360\237\214\212'
-REFRESH='\360\237\224\204'
-ROBOT='\360\237\244\226'
-SPARKLES='\342\234\250'
-SURFER='\360\237\217\204'
-TOOLBOX='\360\237\247\260 ' # needs space
-TREX='\360\237\246\226 ' # needs space
-WRENCH='\360\237\224\247'
 
 # Text
 
@@ -37,37 +25,37 @@ CLEARLINE='                    ' # clears out widest commmand (add spaces if cha
 
 # https://github.com/thoughtbot/laptop
 append_to_zshrc() {
-  local text="$1" zshrc
-  local skip_new_line="${2:-0}"
+	local text="$1" zshrc
+	local skip_new_line="${2:-0}"
 
-  if [ -w "$HOME/.zshrc.local" ]; then
-    zshrc="$HOME/.zshrc.local"
-  else
-    zshrc="$HOME/.zshrc"
-  fi
+	if [ -w "$HOME/.zshrc.local" ]; then
+		zshrc="$HOME/.zshrc.local"
+	else
+		zshrc="$HOME/.zshrc"
+	fi
 
-  if ! grep -Fqs "$text" "$zshrc"; then
-    if [ "$skip_new_line" -eq 1 ]; then
-      printf "%s\\n" "$text" >> "$zshrc"
-    else
-      printf "\\n%s\\n" "$text" >> "$zshrc"
-    fi
-  fi
+	if ! grep -Fqs "$text" "$zshrc"; then
+		if [ "$skip_new_line" -eq 1 ]; then
+			printf "%s\\n" "$text" >> "$zshrc"
+		else
+			printf "\\n%s\\n" "$text" >> "$zshrc"
+		fi
+	fi
 }
 
 zsh_plugin() {
-  if ! grep "^plugins=.*$1[)|\s]" $HOME/.zshrc >/dev/null; then
-    echo "yes"
-    sed -i '' "s/^plugins=\([^)]*\)/plugins=\1 $1/" $HOME/.zshrc
-  fi
+	if ! grep "^plugins=.*$1[)|\s]" $HOME/.zshrc >/dev/null; then
+		echo "yes"
+		sed -i '' "s/^plugins=\([^)]*\)/plugins=\1 $1/" $HOME/.zshrc
+	fi
 }
 
 zsh_custom_plugin() {
-  ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-  if [ ! -d "${ZSH_CUSTOM}/plugins/$1" ]; then
-    zsh_plugin $1
-    git clone "https://github.com/zsh-users/$1.git" "${ZSH_CUSTOM}/plugins/$1" >/dev/null
-  fi
+	ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+	if [ ! -d "${ZSH_CUSTOM}/plugins/$1" ]; then
+		zsh_plugin $1
+		git clone --depth=1 "https://github.com/$2/$1.git" "${ZSH_CUSTOM}/plugins/$1" >/dev/null
+	fi
 }
 
 ###############################
@@ -79,117 +67,91 @@ printf "${SURFER} Dropping in…\n"
 
 START_TIME=$SECONDS
 
-
-
 # 1. Xcode
-printf "[1/7] ${WRENCH} Installing XCode [${B1}${B0}${B0}${B0}${B0}${B0}${B0}${B0}] "
-if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
-	test -d "${xpath}" && test -x "${xpath}" ; then
-	printf "\r[1/7] ${WRENCH} Xcode: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+printf "[1/8] 🛠️ Installing XCode [${B1}${B0}${B0}${B0}${B0}${B0}${B0}${B0}] "
+if xcode-select --version >/dev/null; then
+	printf "\r[1/8] 🛠️ Xcode: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
 	xcode-select --install >/dev/null
-	printf "\r[1/7] ${WRENCH} Xcode: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+	printf "\r[1/8] 🛠️ Xcode: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 2. Oh My Zsh
-printf "[2/7] ${TOOLBOX} Installing Oh My Zsh [${B1}${B1}${B0}${B0}${B0}${B0}${B0}${B0}]"
-touch $HOME/.hushlogin # Silence “Last login” message
-zsh_plugin 'node' # Enable node plugin
-zsh_plugin 'z' # Enable z plugin
-if [ -f $HOME/.oh-my-zsh/oh-my-zsh.sh ]; then
-	printf "\r[2/7] ${TOOLBOX} Oh My Zsh: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
-else
-  export RUNZSH='no' # prevent Oh My Zsh from interrupting this script
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null
-	printf "\r[2/7] ${TOOLBOX} Oh My Zsh: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
-fi
-
-# 3. Bullet-train theme
-printf "[3/7] ${NAILS} Installing Theme [${B1}${B1}${B1}${B0}${B0}${B0}${B0}${B0}]"
-
-# 3a. If no Perplexed, install
-if [ ! -f $HOME/Library/Fonts/Perplexed-Normal.otf ]; then
-  curl -o $HOME/Library/Fonts/Perplexed-Normal.otf https://raw.githubusercontent.com/phoikoi/perplexed/master/Perplexed-Normal.otf >/dev/null
-fi
-
-# 3b. Reset theme to Bullet-train and add settings (in case user wanted to reset)
-sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="bullet-train"/' $HOME/.zshrc
-
-# 3c. If no theme file, install
-if [ -f "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme" ]; then
-	printf "\r[3/7] ${NAILS} Theme: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
-else
-  curl -o "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/bullet-train.zsh-theme" https://raw.githubusercontent.com/caiogondim/bullet-train.zsh/master/bullet-train.zsh-theme >/dev/null
-  # Add Bullet Train variables BEFORE ZSH_THEME to take effect
-  sed -i '' 's/^ZSH_THEME=.*/# Bullet Train Settings (must come before ZSH_THEME)\
-prompt_emoji() {\
-  prompt_segment black white "🏄‍♂️ "\
-}\
-BULLETTRAIN_PROMPT_ORDER=(emoji dir nvm git cmd_exec_time)
-BULLETTRAIN_PROMPT_ADD_NEWLINE=false
-BULLETTRAIN_PROMPT_SEPARATE_LINE=false
-BULLETTRAIN_PROMPT_CHAR=""
-BULLETTRAIN_EXEC_TIME_BG=239
-BULLETTRAIN_EXEC_TIME_FG=black
-BULLETTRAIN_EXEC_TIME_ELAPSED=0
-BULLETTRAIN_DIR_BG=57
-BULLETTRAIN_DIR_FG=black
-BULLETTRAIN_GIT_BG=41
-BULLETTRAIN_GIT_FG=236
-BULLETTRAIN_GIT_CLEAN=""
-BULLETTRAIN_GIT_DIRTY=" ⚠︎"
-BULLETTRAIN_GIT_COLORIZE_DIRTY=true
-BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR=214
-BULLETTRAIN_GIT_EXTENDED=false
-BULLETTRAIN_NVM_BG=black
-BULLETTRAIN_NVM_FG=41
-BULLETTRAIN_NVM_SHOW=true
-\
-ZSH_THEME="bullet-train"/' $HOME/.zshrc
-  printf "\r[3/7] ${NAILS} Theme: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
-fi
-
-# 4. Plugins
-printf "[4/7] ${SPARKLES} Installing Plugins [${B1}${B1}${B1}${B1}${B0}${B0}${B0}${B0}] "
-zsh_custom_plugin 'zsh-autosuggestions'
-zsh_custom_plugin 'zsh-completions'
-zsh_custom_plugin 'zsh-syntax-highlighting'
-printf "\r[4/7] ${SPARKLES} Plugins: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
-
-# 5. Homebrew
-printf "[5/7] ${BEERS} Installing Homebrew [${B1}${B1}${B1}${B1}${B1}${B0}${B0}${B0}]"
+# 2. Homebrew
+NONINTERACTIVE=1
+printf "[2/8] 🍺 Installing Homebrew [${B1}${B1}${B0}${B0}${B0}${B0}${B0}${B0}]"
 if command -v brew >/dev/null; then
-	printf "\r[5/7] ${BEERS} Homebrew: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+	printf "\r[2/8] 🍺 Homebrew: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  export PATH="/usr/local/bin:$PATH"
-  source "~/.zshrc" # reload Homebrew
-	printf "\r[5/7] ${BEERS} Homebrew: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	export PATH="/usr/local/bin:$PATH"
+	source ~/.zshrc # reload
+	printf "\r[2/8] 🍺 Homebrew: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 6. Git (use latest Homebrew version; not system version)
-printf "[6/7] ${ROBOT} Installing Git [${B1}${B1}${B1}${B1}${B1}${B1}${B0}${B0}]"
+# 3. Git via Homebrew
+printf "[3/8] 🎋 Installing Git [${B1}${B1}${B1}${B0}${B0}${B0}${B0}${B0}]"
 if brew ls --versions git >/dev/null; then
-	printf "\r[6/7] ${ROBOT} Git: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+	printf "\r[3/8] 🎋 Git: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  brew install git >/dev/null
-  append_to_zshrc '# Git'
-  append_to_zshrc 'export GIT_TERMINAL_PROMPT=1' 1
-	printf "\r[6/7] ${BEERS} Git: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+	brew install git >/dev/null
+	printf "\r[3/8] 🎋 Git: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 7. fnm
-printf "[7/7] ${TREX} Installing fnm [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}]"
+# 4. fnm
+printf "[4/8] 🦖 Installing fnm [${B1}${B1}${B1}${B1}${B0}${B0}${B0}${B0}]"
 append_to_zshrc '# fnm'
 append_to_zshrc 'eval "$(fnm env --use-on-cd)"' 1
 if command -v fnm >/dev/null; then
-	printf "\r[7/7] ${TREX} fnm: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+	printf "\r[4/8] 🦖 fnm: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
 else
-  brew install fnm >/dev/null
-	printf "\r[7/7] ${TREX} fnm: ${GREEN}${CHECK} installed${RESETALL}${CLEARLINE}\n"
+	brew install fnm >/dev/null
+	printf "\r[4/8] 🦖 fnm: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
 fi
 
-# 8. Finish
+# 5 pnpm
+if pnpm --version >/dev/null; then
+	printf "\r[5/8] 🚚 pnpm: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+else
+	curl -fsSL https://get.pnpm.io/install.sh | sh -
+	printf "\r[5/8] 🚚 pnpm: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
+fi
+
+# 6. Oh My Zsh
+printf "[6/8] ⚡ Installing Oh My Zsh [${B1}${B1}${B1}${B1}${B1}${B1}${B0}${B0}]"
+touch $HOME/.hushlogin # Silence “Last login” message
+
+if [ -f $HOME/.oh-my-zsh/oh-my-zsh.sh ]; then
+	printf "\r[6/8] ⚡ Oh My Zsh: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+else
+	export RUNZSH='no' # prevent Oh My Zsh from interrupting this script
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" >/dev/null
+	printf "\r[6/8] ⚡ Oh My Zsh: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
+fi
+
+# 7. Zsh Plugins
+printf "[7/8] 🧩 Installing Zsh Plugins [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B0}] "
+zsh_plugin 'brew'
+zsh_custom_plugin 'fast-syntax-highlighting' 'zdharma-continuum'
+zsh_plugin 'z'
+zsh_custom_plugin 'zsh-autosuggestions' 'zsh-users'
+zsh_custom_plugin 'zsh-syntax-highlighting' 'zsh-users'
+zsh_custom_plugin 'zsh-autocomplete' 'marlonrichert'
+printf "\r[7/8] 🧩 Plugins: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
+
+
+# 8. powerlevel10k theme (leave till last, because interactive install kicks in)
+printf "[8/8] 🎨 Installing Theme [${B1}${B1}${B1}${B1}${B1}${B1}${B1}${B1}]"
+sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/' $HOME/.zshrc
+# 8c. If no theme file, install
+if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+	printf "\r[8/8] 🎨 Theme: ${DIM}already installed${RESETALL}${CLEARLINE}\n"
+else
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+	printf "\r[8/8] 🎨 Theme: ${GREEN}✔︎ installed${RESETALL}${CLEARLINE}\n"
+	printf "         Setting up powerlevel10k..."
+fi
+
+# Finish (and aliases)
 append_to_zshrc '# Aliases'
 append_to_zshrc "alias gcb='git checkout -b '" 1
 append_to_zshrc "alias gcm='git checkout main'" 1
@@ -203,7 +165,6 @@ append_to_zshrc "alias grm='git rebase -i origin/main'" 1
 append_to_zshrc "alias grs='git rebase --skip'" 1
 append_to_zshrc "alias gs='git status'" 1
 ELAPSED_TIME=$(($SECONDS - $START_TIME))
-printf "${GREEN}${BOLD}${CHECK} Done${RESETALL} in $(($ELAPSED_TIME))s.\n"
-printf "\n${YELLOW}${BOLD}Change your terminal font to “Perplexed Normal” for icons to work${RESETALL}\n"
-printf "\n${REFRESH} ${BOLD}Restart your terminal for settings to take effect.${RESETALL}\n"
+printf "${GREEN}${BOLD}✔︎ Done${RESETALL} in $(($ELAPSED_TIME))s.\n"
 printf "\nHappy surfing!\n"
+source ~/.zshrc # reload
