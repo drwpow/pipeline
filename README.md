@@ -11,7 +11,7 @@ Rad setup scripts to get your Mac [_pitted_](https://youtu.be/Y5ckCAUVOn0?si=puI
 | Xcode Tools                                                     | You need this for almost any development anyway.                                   |
 | [Homebrew](https://brew.sh/)                                    | The unofficial package manager for Mac.                                            |
 | [Git](https://git-scm.com/)                                     | Standard version control for modern software.                                      |
-| [fnm](https://github.com/Schniz/fnm)                            | Lightweight [Node] version manager, powered by Rust.                               |
+| [fnm](https://github.com/Schniz/fnm)                            | The fastest [Node.js](https://nodejs.org/en) version manager, powered by Rust.     |
 | [pnpm](https://pnpm.io)                                         | Better npm.                                                                        |
 | [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)          | Terminal themes & handy plugins for people that don’t enjoy writing shell scripts. |
 | [powerlevel10k theme](https://github.com/romkatv/powerlevel10k) | Flexible, customizable, do-it-all theme for Zshell.                                |
@@ -20,17 +20,17 @@ No cruft, unopinionated, all easily-reversible.
 
 ## 🚀 Quickstart
 
-> ![TIP] > [iTerm2](https://iterm2.com/) or [Warp](https://www.warp.dev/) is **strongly recommended** for Terminal. It has better color support and more modern features than the default Terminal application.
+> ⚡ **Tip**
+>
+> [iTerm2](https://iterm2.com/) or [Warp](https://www.warp.dev/) is **strongly recommended** for Terminal. It has better color support and more modern features than the default Terminal application.
 
-Run the folowing command in a terminal ([view source][source])
+Run the folowing command in a terminal ([view source](https://github.com/drwpow/pipeline/blob/main/bin/pipeline)):
 
 ```sh
 sudo sh -c "$(curl -s https://raw.githubusercontent.com/drwpow/pipeline/main/bin/pipeline)"
 ```
 
-At the end, you’ll enter the [powerlevel10k](https://github.com/romkatv/powerlevel10k) config. It’s recommended to **Install the Meslo Nerd Font** as part of the setup so the theme displays properly.
-
-_Note: This script is safe to re-run as many times as you’d like! `sudo` is only required for installing [Homebrew](https://brew.sh/) and can be skipped if you’ve installed that already._
+_Note: This script is safe to re-run as many times as you’d like. `sudo` is only required for installing [Homebrew](https://brew.sh/) and can be skipped if you’ve installed that already._
 
 ### ↪️ Next Steps
 
@@ -50,15 +50,9 @@ There’s not an uninstall script, but the changes this script makes are fully r
 | `~/.hushlogin`           | This hides the annoying ”Last login” message on every terminal bootup. Delete this empty file to undo it.                                               |
 | `~/.zshrc.pre-oh-my-zsh` | Oh My Zsh will leave this around, in case you want to switch back to your preexisting setup.                                                            |
 
-That’s it! No other files or system settings were affected.
-
 ## ️🤷🏻‍♂️ About
 
-This setup script came about from several people over the years asking me [about my config][config], and to set up their machines. I had more than 2 people ask, so I automated it 🤖.
-
-I also don’t like a ton of tools. So this doesn’t add any cruft; only the tried-and-true tools I’ve used for years.
-
-This software is **public domain**. Remix, copy, steal, whatever—just use it to help others! Use at your own risk.
+I’ve had to set up a lot of dev machines over the years, and this saves me time. This is something I always run on all my new machines. You can also take a peek at [my configfiles](https://github.com/drwpow/config), too.
 
 ### Inspiration
 
